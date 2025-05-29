@@ -11,23 +11,24 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe m
 RUN echo 'Acquire::http::Timeout "60";' > /etc/apt/apt.conf.d/99timeout && \
     echo 'Acquire::ftp::Timeout "60";' >> /etc/apt/apt.conf.d/99timeout
 
-# Update and install dependencies
-RUN apt-get update --fix-missing && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update --fix-missing
+
+# Установка необходимых пакетов
+RUN apt-get install -y --no-install-recommends \
         git \
         cmake \
         build-essential \
-        libopenblas-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+        libopenblas-dev
 
-# Copy torch .whl file (manually downloaded)
-COPY torch-2.1.1+cu121-cp310-cp310-linux_x86_64.whl /app/
+# Очистка временных файлов apt
+RUN apt-get clean
+
+# Удаление списков репозиториев
+RUN rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt && \
-    pip install --no-cache-dir /app/torch-2.1.1+cu121-cp310-cp310-linux_x86_64.whl
+RUN pip install --no-cache-dir -r requirements.txt 
 
 # Copy handler
 COPY handler.py .
