@@ -6,9 +6,9 @@ from llama_cpp import Llama
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-storage_path = os.getenv("STORAGE_PATH", "/workspace")
+storage_path = os.getenv("STORAGE_PATH", "/runpod-volume")
 model_path = f"{storage_path}/models/deepsex-34b.Q4_K_M.gguf" 
-book_dir = f"{storage_path}/book")
+book_dir = f"{storage_path}/book"
 
 if not os.path.exists(model_path):
     logger.error(f"Модель не найдена: {model_path}")
