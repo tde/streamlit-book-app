@@ -10,9 +10,6 @@ storage_path = os.getenv("STORAGE_PATH", "/runpod-volume")
 model_path = f"{storage_path}/models/deepsex-34b.Q4_K_M.gguf" 
 book_dir = f"{storage_path}/book"
 
-if not os.path.exists(model_path):
-    logger.error(f"Модель не найдена: {model_path}")
-    return {"statusCode": 500, "body": f"Модель не найдена: {model_path}"}
 if not os.path.exists(book_dir):
     logger.info(f"Создание директории: {book_dir}")
     os.makedirs(book_dir)
