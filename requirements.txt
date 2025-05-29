@@ -1,0 +1,2 @@
+torch==2.1.1+cu121
+llama-cpp-python==0.2.85
