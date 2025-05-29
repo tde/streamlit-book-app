@@ -11,8 +11,6 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe m
 RUN echo 'Acquire::http::Timeout "60";' > /etc/apt/apt.conf.d/99timeout && \
     echo 'Acquire::ftp::Timeout "60";' >> /etc/apt/apt.conf.d/99timeout
 
-RUN apt-get update --fix-missing
-
 # Установка необходимых пакетов
 RUN apt-get install -y --no-install-recommends \
         git \
