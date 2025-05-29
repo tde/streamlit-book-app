@@ -17,13 +17,16 @@ if not os.path.exists(book_dir):
     logger.info(f"Создание директории: {book_dir}")
     os.makedirs(book_dir)
 
-logger.info("Загрузка модели...")
+# Загрузка модели
+llm = None
 try:
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Модель не найдена: {model_path}")
+    logger.info("Загрузка модели...")
     llm = Llama(model_path=model_path, n_ctx=8192, n_gpu_layers=35)
     logger.info("Модель загружена")
 except Exception as e:
     logger.error(f"Ошибка загрузки модели: {str(e)}")
-    return {"statusCode": 500, "body": f"Ошибка загрузки модели: {str(e)}"}
 
 def handler(event, context):
     try:
